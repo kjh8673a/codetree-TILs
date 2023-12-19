@@ -12,8 +12,10 @@ public class Main {
             heightSet.add(iceberg[i]);
         }
 
-        boolean[] peak = new boolean[N + 2];
         int answer = 0;
+
+        boolean[] peak = new boolean[N + 2];
+        int count = 0;
         for(int height : heightSet) {
             for(int i = 1; i < N + 1; i++) {
                 if(peak[i] || iceberg[i] - height <= 0) {
@@ -22,9 +24,13 @@ public class Main {
 
                 peak[i] = true;
                 if(!peak[i - 1] && !peak[i + 1]) {
-                    answer++;
+                    count++;
+                }else if(peak[i - 1] && peak[i + 1]) {
+                    count--;
                 }
             }
+
+            answer = Math.max(answer, count);
         }
 
         System.out.println(answer);
