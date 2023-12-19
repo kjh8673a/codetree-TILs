@@ -2,16 +2,24 @@ import java.io.*;
 import java.util.*;
 
 public class Main {
+    static class Iceberg {
+        int idx;
+        int height;
+
+        public Iceberg(int idx, int height) {
+            this.idx = idx;
+            this.height = height;
+        }
+    }
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int N = Integer.parseInt(br.readLine());
-        int[] iceberg = new int[N + 2];
         TreeSet<Integer> heightSet = new TreeSet<>(Collections.reverseOrder());
-        Queue<Integer> icebergIndex = new LinkedList<>();
+        Queue<Iceberg> icebergQueue = new LinkedList<>();
         for(int i = 1; i < N + 1; i++) {
-            iceberg[i] = Integer.parseInt(br.readLine());
-            heightSet.add(iceberg[i]);
-            icebergIndex.add(i);
+            int height = Integer.parseInt(br.readLine());
+            heightSet.add(height);
+            icebergQueue.add(new Iceberg(i, height));
         }
 
         int answer = 0;
@@ -19,19 +27,20 @@ public class Main {
         boolean[] peak = new boolean[N + 2];
         int count = 0;
         for(int height : heightSet) {
-            int queueSize = icebergIndex.size();
+            int queueSize = icebergQueue.size();
 
             for(int i = 0; i < queueSize; i++) {
-                int idx = icebergIndex.poll();
-                if(iceberg[idx] - height <= 0) {
-                    icebergIndex.add(idx);
+                Iceberg iceberg = icebergQueue.poll();
+                
+                if(iceberg.height - height <= 0) {
+                    icebergQueue.add(iceberg);
                     continue;
                 }
 
-                peak[idx] = true;
-                if(!peak[idx - 1] && !peak[idx + 1]) {
+                peak[iceberg.idx] = true;
+                if(!peak[iceberg.idx - 1] && !peak[iceberg.idx + 1]) {
                     count++;
-                }else if(peak[idx - 1] && peak[idx + 1]) {
+                }else if(peak[iceberg.idx - 1] && peak[iceberg.idx + 1]) {
                     count--;
                 }
             }
