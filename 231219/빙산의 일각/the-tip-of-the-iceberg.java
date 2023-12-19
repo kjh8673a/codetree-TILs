@@ -7,9 +7,11 @@ public class Main {
         int N = Integer.parseInt(br.readLine());
         int[] iceberg = new int[N + 2];
         TreeSet<Integer> heightSet = new TreeSet<>(Collections.reverseOrder());
+        Queue<Integer> icebergIndex = new LinkedList<>();
         for(int i = 1; i < N + 1; i++) {
             iceberg[i] = Integer.parseInt(br.readLine());
             heightSet.add(iceberg[i]);
+            icebergIndex.add(i);
         }
 
         int answer = 0;
@@ -17,15 +19,19 @@ public class Main {
         boolean[] peak = new boolean[N + 2];
         int count = 0;
         for(int height : heightSet) {
-            for(int i = 1; i < N + 1; i++) {
-                if(peak[i] || iceberg[i] - height <= 0) {
+            int queueSize = icebergIndex.size();
+
+            for(int i = 0; i < queueSize; i++) {
+                int idx = icebergIndex.poll();
+                if(iceberg[idx] - height <= 0) {
+                    icebergIndex.add(idx);
                     continue;
                 }
 
-                peak[i] = true;
-                if(!peak[i - 1] && !peak[i + 1]) {
+                peak[idx] = true;
+                if(!peak[idx - 1] && !peak[idx + 1]) {
                     count++;
-                }else if(peak[i - 1] && peak[i + 1]) {
+                }else if(peak[idx - 1] && peak[idx + 1]) {
                     count--;
                 }
             }
