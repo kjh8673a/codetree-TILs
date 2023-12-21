@@ -2,14 +2,11 @@ import java.io.*;
 import java.util.*;
 
 public class Main {
-    static int n, answer;
-    static int[][] task;
-
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        n = Integer.parseInt(br.readLine());
+        int n = Integer.parseInt(br.readLine());
 
-        task = new int[n + 1][2];
+        int[][] task = new int[n + 1][2];
         StringTokenizer st;
         for(int i = 1; i < n + 1; i++) {
             st = new StringTokenizer(br.readLine());
@@ -18,21 +15,15 @@ public class Main {
             task[i] = new int[] {t, p};
         }
 
-        answer = 0;
-        dfs(1, 0);
-
-        System.out.println(answer);
-    }
-
-    private static void dfs(int day, int cost) {
-        if(day == n + 1) {
-            answer = Math.max(answer, cost);
-            return;
-        }else if(day > n + 1) {
-            return;
+        int[] dp = new int[n + 2];
+        for(int i = n; i > 0; i--) {
+            if(i + task[i][0] > n + 1) {
+                dp[i] = dp[i + 1];
+            }else {
+                dp[i] = Math.max(dp[i + 1], task[i][1] + dp[i + task[i][0]]);
+            }
         }
 
-        dfs(day + 1, cost);
-        dfs(day + task[day][0], cost + task[day][1]);
+        System.out.println(dp[1]);
     }
 }
