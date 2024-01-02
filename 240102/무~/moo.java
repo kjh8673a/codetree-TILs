@@ -27,7 +27,7 @@ public class Main {
         }
 
         int mid = 1 + (t + 2);
-        int left = (n - mid) / 2;
+        int left = (len - mid) / 2;
 
         if(n <= left) {
             return findCharacter(n, left, t - 1);
