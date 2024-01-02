@@ -17,9 +17,9 @@ public class Main {
         System.out.println(c);
     }
 
-    private static Character findCharacter(int N, int len, int t) {
+    private static Character findCharacter(int n, int len, int t) {
         if(t == 0) {
-            if(N == 1) {
+            if(n == 1) {
                 return 'm';
             }else {
                 return 'o';
@@ -27,18 +27,18 @@ public class Main {
         }
 
         int mid = 1 + (t + 2);
-        int left = (N - mid) / 2;
+        int left = (n - mid) / 2;
 
-        if(N <= left) {
-            return findCharacter(N, left, t - 1);
-        }else if(N > left && N <= left + mid) {
-            if(len == left + 1) {
+        if(n <= left) {
+            return findCharacter(n, left, t - 1);
+        }else if(n > left && n <= left + mid) {
+            if(n == left + 1) {
                 return 'm';
             }else {
                 return 'o';
             }
         }else {
-            return findCharacter(N - mid + left, left, t - 1);
+            return findCharacter(n - mid + left, left, t - 1);
         }
     }
 
