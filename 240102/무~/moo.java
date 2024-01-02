@@ -38,7 +38,7 @@ public class Main {
                 return 'o';
             }
         }else {
-            return findCharacter(n - mid + left, left, t - 1);
+            return findCharacter(n - (mid + left), left, t - 1);
         }
     }
 
