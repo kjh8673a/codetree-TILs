@@ -31,11 +31,14 @@ public class Main {
             point++;
         }
 
-        if(point != B) {
+        if(point != B && now != 0) {
             int mod = (int) (B - point) % dp.size();
-            String answerBit = Integer.toBinaryString(mod);
-            for(int i = 0; i < N; i++) {
-                lightBulbs[i] = answerBit.charAt(i) == '1' ? 1 : 0;
+            String answerBit = Integer.toBinaryString(dp.get(mod));
+            
+            Arrays.fill(lightBulbs, 0);
+            int idx = N - 1;
+            for(int i = answerBit.length() - 1; i >= 0; i--) {
+                lightBulbs[idx--] = answerBit.charAt(i) == '1' ? 1 : 0;
             }
         }
 
