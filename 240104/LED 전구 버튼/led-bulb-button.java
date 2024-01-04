@@ -8,7 +8,7 @@ public class Main {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
         N = Integer.parseInt(st.nextToken());
-        int B = Integer.parseInt(st.nextToken());
+        Long B = Long.parseLong(st.nextToken());
 
         lightBulbs = new int[N];
         for(int i = 0; i < N; i++) {
@@ -32,7 +32,7 @@ public class Main {
         }
 
         if(point != B) {
-            int mod = (B - point) % dp.size();
+            int mod = (int) (B - point) % dp.size();
             String answerBit = Integer.toBinaryString(mod);
             for(int i = 0; i < N; i++) {
                 lightBulbs[i] = answerBit.charAt(i) == '1' ? 1 : 0;
