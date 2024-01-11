@@ -9,31 +9,30 @@ public class Main {
         String t = br.readLine();
         char tail = t.charAt(t.length() - 1);
 
-        Stack<Character> stack = new Stack<>();
+        char[] arr = new char[s.length()];
+        int idx = 0;
 
+        loop:
         for(int i = 0; i < s.length(); i++) {
-            stack.add(s.charAt(i));
+            arr[idx++] = s.charAt(i);
             
-            if(stack.size() >= t.length() && stack.peek() == tail) {
-                String tmp = "";
-                for(int j = 0; j < t.length(); j++) {
-                    tmp = stack.pop() + tmp;
-                }
-
-                if(!tmp.equals(t)) {
-                    for(int j = 0; j < t.length(); j++) {
-                        stack.add(tmp.charAt(j));
+            if(idx >= t.length() && arr[idx - 1] == tail) {
+                int start = idx - t.length();
+                for(int j = start; j < start + t.length(); j++) {
+                    if(arr[j] != t.charAt(j - start)) {
+                        continue loop;
                     }
                 }
-            }
 
+                idx = start;            
+            }
         }
 
         StringBuilder sb = new StringBuilder();
-        while(!stack.isEmpty()) {
-            sb.append(stack.pop());
+        for(int i = 0; i < idx; i++) {
+            sb.append(arr[i]);
         }
 
-        System.out.println(sb.reverse().toString());
+        System.out.println(sb);
     }
 }
