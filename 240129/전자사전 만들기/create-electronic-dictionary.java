@@ -1,6 +1,5 @@
 import java.io.*;
 import java.util.*;
-import java.util.stream.*;
 
 public class Main {
     public static void main(String[] args) throws IOException {
@@ -24,11 +23,20 @@ public class Main {
             int k = Integer.parseInt(st.nextToken());
             String keyword = st.nextToken();
 
-            List<String> keywordList = wordList.stream().filter(word -> word.startsWith(keyword)).collect(Collectors.toList());
-            if(keywordList.size() < k) {
+            int index = -1;
+            for(int j = 0; j < wordList.size(); j++) {
+                if(wordList.get(j).startsWith(keyword)) {
+                    index = j;
+                    break;
+                }
+            }
+
+            if(wordList.size() < index + k || index == -1) {
+                sb.append(-1).append("\n");
+            }else if(!wordList.get(index + k - 1).startsWith(keyword)) {
                 sb.append(-1).append("\n");
             }else {
-                sb.append(wordMap.get(keywordList.get(k - 1))).append("\n");
+                sb.append(wordMap.get(wordList.get(index + k - 1))).append("\n");
             }
         }
 
