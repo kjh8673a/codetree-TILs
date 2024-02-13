@@ -17,7 +17,7 @@ public class Main {
             arr[i][1] = Math.max(a, b);
         }
 
-        Arrays.sort(arr, (o1, o2) -> Integer.compare(o1[0], o2[0]));
+        Arrays.sort(arr, (o1, o2) -> Integer.compare(o1[1], o2[1]));
 
         int answer = 0;
         int line = 0;
