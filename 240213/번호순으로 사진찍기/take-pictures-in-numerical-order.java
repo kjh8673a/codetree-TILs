@@ -34,7 +34,7 @@ public class Main {
                 answer++;
             }
         }
-        if(line < n) {
+        if(line <= n) {
             answer++;
         }        
 
