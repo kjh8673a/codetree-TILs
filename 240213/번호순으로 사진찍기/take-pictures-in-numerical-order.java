@@ -19,9 +19,9 @@ public class Main {
 
         Arrays.sort(arr, (o1, o2) -> {
            if (o1[0] == o2[0]) {
-                return Integer.compare(o1[1], o2[1]);
+                return Integer.compare(o1[0], o2[0]);
             }
-            return Integer.compare(o1[0], o2[0]); 
+            return Integer.compare(o1[1], o2[1]); 
         });
 
         int answer = 0;
